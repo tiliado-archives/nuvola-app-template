@@ -23,7 +23,7 @@ Copyright
 ---------
 
   - `Makefile`
-    + Copyright 2014-2015 Jiří Janoušek <janousek.jiri@gmail.com>
+    + Copyright 2014-2016 Jiří Janoušek <janousek.jiri@gmail.com>
     + License: [2-Clause BSD-license](./LICENSE-BSD.txt)
 
   - `src/icon*.svg`
@@ -32,5 +32,5 @@ Copyright
     + License: [CC-BY-3.0](./LICENSE-CC-BY.txt)
 
   - Other files:
-    + Copyright 2015 {Your Name} <{your@email}>
+    + Copyright 2016 {Your Name} <{your@email}>
     + License: [2-Clause BSD-license](./LICENSE-BSD.txt)
