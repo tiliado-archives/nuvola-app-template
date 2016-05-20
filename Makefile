@@ -22,8 +22,6 @@
 
 # Service integration id
 APP_ID = template
-# Dependencies
-DEPS = rsvg-convert
 # Default installation destination
 DEST ?= $(HOME)/.local/share/nuvolaplayer3/web_apps
 # Sizes of the whole icon set
@@ -40,19 +38,14 @@ SCALABLE_ICON = $(ICONS_DIR)/scalable.svg
 
 # Show help
 help:
-	@echo "make deps                - check whether dependencies are satisfied"
 	@echo "make build               - build files (graphics, etc.)"
 	@echo "make clean               - clean source directory"
 	@echo "make install             - install to user's local directory (~/.local)"
 	@echo "make install DEST=/path  - install to '/path' directory"
 	@echo "make uninstall           - uninstall from user's local directory (~/.local)"
 
-# Check dependencies
-deps:
-	@$(foreach dep, $(DEPS), which $(dep) > /dev/null || (echo "Program $(dep) not found"; exit 1;);)
-
 # Build icons
-build: deps $(PNG_ICONS) $(SCALABLE_ICON)
+build: $(PNG_ICONS) $(SCALABLE_ICON)
 
 # Create icons dir
 $(ICONS_DIR):
@@ -60,27 +53,27 @@ $(ICONS_DIR):
 	
 # Generate icon 16
 $(ICONS_DIR)/16.png: $(SOURCE_ICON_XS) | $(ICONS_DIR)
-	rsvg-convert -w 16 -h 16 $< -o $@
+	./svg-convert.sh $< 16 $@
 
 # Generate icon 22	
 $(ICONS_DIR)/22.png : $(SOURCE_ICON_XS) | $(ICONS_DIR)
-	rsvg-convert -w 22 -h 22 $< -o $@
+	./svg-convert.sh $< 22 $@
 
 # Generate icon 24	
 $(ICONS_DIR)/24.png : $(SOURCE_ICON_XS) | $(ICONS_DIR)
-	rsvg-convert -w 24 -h 24 $< -o $@
+	./svg-convert.sh $< 24 $@
 
 # Generate icon 32	
 $(ICONS_DIR)/32.png : $(SOURCE_ICON_SM) | $(ICONS_DIR)
-	rsvg-convert -w 32 -h 32 $< -o $@
+	./svg-convert.sh $< 32 $@
 
 # Generate icon 48
 $(ICONS_DIR)/48.png : $(SOURCE_ICON_SM) | $(ICONS_DIR)
-	rsvg-convert -w 48 -h 48 $< -o $@
+	./svg-convert.sh $< 48 $@
 
 # Generate icons 64 128 256
 $(ICONS_DIR)/%.png : $(SOURCE_ICON) | $(ICONS_DIR)
-	rsvg-convert -w $* -h $* $< -o $@
+	./svg-convert.sh $< $* $@
 
 # Copy scalable icon
 $(SCALABLE_ICON) : $(SOURCE_ICON) | $(ICONS_DIR)
@@ -99,7 +92,7 @@ install: $(LICENSES) $(INSTALL_FILES) $(PNG_ICONS) $(SCALABLE_ICON)
 	
 	# Create symlinks to icons
 	mkdir -pv $(DEST)/../../icons/hicolor/scalable/apps || true
-	ln -s -f -v -T ../../../../$(APP_ID)/$(SCALABLE_ICON) \
+	ln -s -f -v -T ../../../../nuvolaplayer3/web_apps/$(APP_ID)/$(SCALABLE_ICON) \
 		$(DEST)/../../icons/hicolor/scalable/apps/nuvolaplayer3_$(APP_ID).svg;
 	for size in $(ICON_SIZES); do \
 		mkdir -pv $(DEST)/../../icons/hicolor/$${size}x$${size}/apps || true ; \
