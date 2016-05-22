@@ -24,14 +24,14 @@
 APP_ID = template
 # Default installation destination
 DEST ?= $(HOME)/.local/share/nuvolaplayer3/web_apps
-# Sizes of the whole icon set
-ICON_SIZES ?= 16 22 24 32 48 64 128 256
-# Filenames
+# Files to be installed
 INSTALL_FILES = metadata.json integrate.js
 LICENSES = LICENSE-BSD.txt LICENSE-CC-BY.txt
-SOURCE_ICON ?= src/icon.svg
-SOURCE_ICON_XS ?= src/icon-xs.svg
-SOURCE_ICON_SM ?= src/icon-sm.svg
+# Icon set
+SOURCE_ICON ?= icons/icon.svg
+SOURCE_ICON_XS ?= icons/icon-xs.svg
+SOURCE_ICON_SM ?= icons/icon-sm.svg
+ICON_SIZES ?= 16 22 24 32 48 64 128 256
 ICONS_DIR ?= icons
 PNG_ICONS = $(foreach size,$(ICON_SIZES),$(ICONS_DIR)/$(size).png)
 SCALABLE_ICON = $(ICONS_DIR)/scalable.svg
@@ -50,7 +50,11 @@ build: $(PNG_ICONS) $(SCALABLE_ICON)
 # Create icons dir
 $(ICONS_DIR):
 	mkdir -p $@
-	
+
+# Optimize SVG icons
+$(ICONS_DIR)/%.svg: src/%.svg | $(ICONS_DIR)
+	./svg-optimize.sh $< $@
+
 # Generate icon 16
 $(ICONS_DIR)/16.png: $(SOURCE_ICON_XS) | $(ICONS_DIR)
 	./svg-convert.sh $< 16 $@
