@@ -9,6 +9,12 @@ Support
 
 Report bugs and issues at <https://github.com/tiliado/nuvola-app-XXX/issues>.
 
+Dependencies
+------------
+
+  * GNU Make
+  * SVG optimizer: [Scour](https://github.com/codedread/scour)
+  * SVG converter: Lasem, librsvg, GraphicsMagick, ImageMagick 
 
 Installation
 ------------
@@ -22,8 +28,9 @@ Installation
 Copyright
 ---------
 
-  - `Makefile`
+  - `Makefile`, `svg-convert.sh`, `svg-optimize.sh`
     + Copyright 2014-2016 Jiří Janoušek <janousek.jiri@gmail.com>
+    + Copyright 2016 Patrick Burroughs (Celti) <celti@celti.name>
     + License: [2-Clause BSD-license](./LICENSE-BSD.txt)
 
   - `src/icon*.svg`
